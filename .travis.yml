@@ -2,22 +2,24 @@ sudo: required
 services:
   - docker
 
-  before_install:
-    - docker build -t yklistorny/react-test -f ./client/Dockerfile.dev ./client
+before_install:
+  - docker build -t yklistorny/react-test -f ./client/Dockerfile.dev ./client
+  # Add builds for other projects
 
-  script:
-    - docker run yklistorny/react-test npm run test -- --coverage
-  
-  after_success:
-    # Build prod images for each project 
-    - docker build -t yklistorny/multi-client ./client
-    - docker build -t yklistorny/multi-nginx ./nginx
-    - docker build -t yklistorny/multi-server ./server
-    - docker build -t yklistorny/multi-worker ./worker
-    # Log in to the docker CLI
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-    # Take those images and push them to docker hub
-    - docker push yklistorny/multi-client
-    - docker push yklistorny/multi-nginx
-    - docker push yklistorny/multi-server
-    - docker push yklistorny/multi-worker
+script:
+  - docker run yklistorny/react-test npm run test -- --coverage
+  # Add tests for other projects
+
+after_success:
+  # Build prod images for each project 
+  - docker build -t yklistorny/multi-client ./client
+  - docker build -t yklistorny/multi-nginx ./nginx
+  - docker build -t yklistorny/multi-server ./server
+  - docker build -t yklistorny/multi-worker ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push yklistorny/multi-client
+  - docker push yklistorny/multi-nginx
+  - docker push yklistorny/multi-server
+  - docker push yklistorny/multi-worker
