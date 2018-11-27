@@ -4,14 +4,9 @@ services:
 
   before_install:
     - docker build -t yklistorny/react-test -f ./client/Dockerfile.dev ./client
-    # Add build instruction for other projects:
-    # - docker build myotherproject -f ./myotherproject
 
   script:
-     # Add -- --coverage to exit the test mode
     - docker run yklistorny/react-test npm test -- --coverage
-    # Add test script for other projects:
-    # - docker run myotherproject runmytest
   
   after_success:
     # Build prod images for each project 
