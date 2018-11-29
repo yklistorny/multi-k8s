@@ -1,0 +1,11 @@
+username: postgres
+password: postgrespassword
+database: fibvalues
+
+AWS key pair:
+Access key ID:
+AKIAIQZZWLPMMGWEMKUQ
+
+Secret access key:
+AkHXbByuaKD0xY9I8GZ0y3cP3bju6mcu32k5jHwP
+
